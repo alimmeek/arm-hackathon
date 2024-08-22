@@ -82,8 +82,21 @@ int minCost(array<array< int,length_line>,n_lines> cost){
                                cost[i][j - 1]}); // check to the left
         }
     }
+    /*
+    
+                     |  c+=cost_left | c += cost_left ...
+    _________________
+      c+=cost_above  | c + min(cost_above, cost_left)
+            .        | . . .  | .
+            .        | . . .  | . .
+            .        | . . .  | . . .
+
+    
+    
+    */
 
     // Return the value in the bottom right cell
+   // print_cost(cost);
     return cost[n_lines - 1][length_line - 1];
 }
 
