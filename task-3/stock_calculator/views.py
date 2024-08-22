@@ -11,7 +11,7 @@ def dashboard(request):
         date = request.POST.get('date')
         symbol = request.POST.get('name')
 
-        api_key = '6BRPDCS4W0TGFI6S'
+        api_key = 'T7O764S8PYFGLDRK'
 
         if not amount or not date:
             error_message = "Both amount and date fields are required."
@@ -47,6 +47,7 @@ def dashboard(request):
         latest_open_stock_value = latest_time_series[latest_date]['1. open']
 
         difference = (float(latest_open_stock_value) * fraction_of_stock) - float(amount)
+        difference = float("{:.2f}".format(round(difference, 2)))
         if difference >= 0:
             output_data = f"You gained £{abs(difference)}."
         else:
@@ -60,13 +61,13 @@ def dashboard(request):
 
 
 def graph(request):
-    api_key = '6BRPDCS4W0TGFI6S'
+    api_key = 'T7O764S8PYFGLDRK'
 
-    symbol = request.GET.get('symbol') or 'IBM'
-    
-    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={api_key}'
+    symbol = request.GET.get('symbol')
+    if symbol is None:
+        symbol = 'IBM'
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey=demo'
     r = requests.get(url)
-
     dis_data = r.json()
 
 
@@ -85,7 +86,7 @@ def graph(request):
     plt.fill_between(dis_dates, highs, lows, color='blue', alpha=0.15)
 
     # Set plot title and labels
-    plt.title("Daily high and low stock prices for the last 100 days")
+    plt.title(f"Daily high and low stock prices for the last 100 days, for {symbol}")
     plt.xlabel('Date')
     plt.ylabel('Price (USD)')
     plt.legend()
