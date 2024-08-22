@@ -50,7 +50,7 @@ end
 
 always_comb begin
     g_next = g_q;
-    case (curr_state)
+    case (next_state)
         A : g_next = 3'b000;
 
         B : g_next = 3'b001;
@@ -72,5 +72,38 @@ always_ff @(posedge clk or negedge resetn) begin
 end
 
 assign g = g_q;
+
+
+
+// Assertions
+
+default clocking @(posedge clk);
+endclocking
+
+assert_a_to_b : assert property (((r[0]) && (curr_state == A)) |-> ##1 (curr_state == B));
+
+assert_a_to_c : assert property (((r[1] && ~r[0]) && (curr_state == A)) |-> ##1 (curr_state == C));
+
+assert_a_to_d : assert property (((r[2]&& ~r[0] && ~r[1]) && (curr_state == A)) |-> ##1 (curr_state == D));
+
+assert_b_to_a : assert property (((~r[0]) && (curr_state == B)) |-> ##1 (curr_state == A));
+
+assert_c_to_a : assert property (((~r[1]) && (curr_state == C)) |-> ##1 (curr_state == A));
+
+assert_d_to_a : assert property (((~r[2]) && (curr_state == D)) |-> ##1 (curr_state == A));
+
+assert_b_cant_go_to_c_or_d : assert property ((curr_state == B) |-> ((next_state != C) && (next_state != D)));
+
+assert_c_cant_go_to_b_or_d : assert property ((curr_state == C) |-> ((next_state != B) && (next_state != D)));
+
+assert_d_cant_go_to_b_or_c : assert property ((curr_state == D) |-> ((next_state != B) && (next_state != C)));
+
+assert_g0_gets_set : assert property ((next_state == B) |-> ##1 (g[0] == 1'b1));
+
+assert_g1_gets_set : assert property ((next_state == C) |-> ##1 (g[1] == 1'b1));
+
+assert_g2_gets_set : assert property ((next_state == D) |-> ##1 (g[2] == 1'b1));
+
+assert_only_one_granted : assert property ($onehot(g_q) || g_q == 3'b0);
 
 endmodule
