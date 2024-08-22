@@ -68,6 +68,7 @@ fn main() {
                                     // moved to parent
                                     '.' => {
                                         current_depth -= 1;
+                                        current_path.pos -= 2;
                                         while current_path.data[current_path.pos] != b'/' {
                                             current_path.pos -= 1
                                         }
@@ -93,7 +94,7 @@ fn main() {
                             // ls commanmd
                             'l' => {
                                 // check if it is a unique listing
-                                current_path.data[current_path.pos + 1..].fill(0);
+                                current_path.data[current_path.pos+1..].fill(0);
                                 should_chck = visited.insert(current_path.data);
                             }
                             // a command different than ls or cd was issued
@@ -108,7 +109,7 @@ fn main() {
                         if should_chck {
                             // increment file counters
                             file_total += 1;
-                            depth_acc += current_depth;
+                            depth_acc += current_depth+1;
                             // chech if this is most nested file so far
                             if current_depth == max_depth {
                                 // find name of file
@@ -137,8 +138,8 @@ fn main() {
     }
     // print putput
     println!(
-        "{},{},{}",
-        file_total,
+        "{},{},{:.2}",
+        file_total-1,
         std::str::from_utf8(&max_path.data[..max_path.pos]).unwrap(),
         depth_acc as f32 / file_total as f32
     );
