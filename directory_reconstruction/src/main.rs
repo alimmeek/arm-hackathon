@@ -2,8 +2,7 @@ use core::panic;
 use fxhash::FxHashSet;
 use std::io;
 
-const MAX_PATH_LEN: usize = 2000;
-
+const MAX_PATH_LEN: usize = 300;
 struct StackString {
     data: [u8; MAX_PATH_LEN],
     pos: usize,
