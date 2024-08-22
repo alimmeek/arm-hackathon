@@ -19,7 +19,11 @@
         <div class="row mt-4 justify-content-md-center">
             <div class="col-6">
                 <div class="alert alert-info">
-                    Amount Gained/Lost: {{ output_data }}
+                    <h3>Open stock value was £{{ open }} on {{ date }}.</h3>
+                    <div>You paid £{{amount}}.</div>
+                    <div>
+                        {{ output_data }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,7 +37,7 @@
                             <div class="row mb-3">
                                 <label for="amount" class="col-sm-5 col-form-label">Amount Spent on Stock (£):</label>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="amount" name="amount">
+                                    <input type="number" class="form-control" id="amount" name="amount" step=".01">
                                 </div>
                             </div>
                             <div class="row mb-3">
