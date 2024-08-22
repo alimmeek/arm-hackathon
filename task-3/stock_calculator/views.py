@@ -11,7 +11,7 @@ def dashboard(request):
         date = request.POST.get('date')
         symbol = request.POST.get('name')
 
-        api_key = 'T7O764S8PYFGLDRK'
+        api_key = '71OOEVZ6HN8LXFF5'
 
         if not amount or not date:
             error_message = "Both amount and date fields are required."
@@ -61,7 +61,7 @@ def dashboard(request):
 
 
 def graph(request):
-    api_key = 'T7O764S8PYFGLDRK'
+    # api_key = '71OOEVZ6HN8LXFF5'
 
     symbol = request.GET.get('symbol')
     if symbol is None:
@@ -93,18 +93,5 @@ def graph(request):
 
     # Save the plot as an image
     plt.savefig('static/plot.png')
-    # plt.show()
-
-    # fig, ax = plt.subplots()
-    # ax.plot(dis_dates, highs, c='red', alpha=0.6)
-    # ax.plot(dis_data, lows, c='blue', alpha=0.6)
-    # ax.fill_between(dis_dates, highs, lows, facecolor='blue', alpha=0.15)
-
-    # ax.set_title(f"Daily high and low stock prices, for last 100 days")
-    # ax.set_xlabel('',fontsize=16)
-
-
-    # plt.savefig('plot.png')
-    # plt.show()
 
     return render(request, 'dashboard_2.html')
