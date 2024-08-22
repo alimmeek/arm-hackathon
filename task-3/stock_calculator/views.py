@@ -11,7 +11,7 @@ def dashboard(request):
         date = request.POST.get('date')
         symbol = request.POST.get('name')
 
-        api_key = 'demo'
+        api_key = '71OOEVZ6HN8LXFF5'
 
         if not amount or not date:
             error_message = "Both amount and date fields are required."
