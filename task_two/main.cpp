@@ -2,9 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <stack>
-#include <set>
+#include <algorithm>
+#include <array>
 using namespace std;
 
 constexpr int n_lines=100;
