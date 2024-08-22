@@ -5,5 +5,7 @@ An arbiter circuit controls access to some kind of resource. In this case, there
 
 This circuit has a priority system: device 1 has highest priority, and device 3 has lowest priority. I.e., device 3 will only receive the grant if it is the only device making the request.
 
-## Compiling
-TBA
+## Running
+**IF USING VERILATOR/ANOTHER SIM THAT DOESN'T SUPPORT ASSERTIONS PLEASE USE `arbiter_no_assert.sv`**
+
+`tb_arbiter.sv` is a basic testbench that cycles though each possible input. `arbiter.sv` contains assertions to ensure the module performs as expected.
