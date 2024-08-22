@@ -35,6 +35,7 @@ def dashboard(request):
         earliest_key_for_date = all_keys_for_date[-1]
         open_stock_value = time_series[earliest_key_for_date]['1. open']
 
+        # Calculate the fraction that the stock was bought for
         fraction_of_stock = float(amount) / float(open_stock_value)
 
         # Get today's stock value, multiply it by fraction_of_stock, and get result - converted_amount
