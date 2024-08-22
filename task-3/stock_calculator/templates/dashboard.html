@@ -19,7 +19,7 @@
         <div class="row mt-4 justify-content-md-center">
             <div class="col-6">
                 <div class="alert alert-info">
-                    <h4>{{ date }}'s open stock value was £{{ open }}.</h4>
+                    <h4>{{ symbol }}'s open stock value was £{{ open }} at {{ date }}.</h4>
                     <h4>Latest stock value is £{{latest_open}}.</h4>
                     <div>You bought the stock for £{{amount}}.</div>
                     <div>
@@ -32,13 +32,19 @@
         <div class="row mt-4 justify-content-md-center">
             <div class="col-10">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         <form method="POST" action="{% url 'dashboard' %}">
                             {% csrf_token %}
                             <div class="row mb-3">
                                 <label for="amount" class="col-sm-5 col-form-label alert alert-primary">Amount Spent on Stock (£):</label>
                                 <div class="col-sm-4">
                                     <input type="number" class="form-control" id="amount" name="amount" step=".01">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-5 col-form-label alert alert-primary">Stock Symbol:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="name" name="name">
                                 </div>
                             </div>
                             <div class="row mb-3">

@@ -7,15 +7,17 @@ def dashboard(request):
     if request.method == 'POST':
         amount = request.POST.get('amount')
         date = request.POST.get('date')
-        
-        api_key = 'demo'
+        symbol = request.POST.get('name')
+
+        api_key = '6BRPDCS4W0TGFI6S'
 
         if not amount or not date:
             error_message = "Both amount and date fields are required."
             return render(request, 'dashboard.html', {'error_message': error_message})        
 
         # Get all data for the month. (It doesn't let us get the data for a specific day.)
-        r = requests.get(f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&month={date[0:-3]}&outputsize=full&apikey={api_key}")
+        r = requests.get(f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval=5min&month={date[0:-3]}&outputsize=full&apikey={api_key}")
+        print(r)
         data = r.json()
 
         # Extract the time series
@@ -35,7 +37,7 @@ def dashboard(request):
         fraction_of_stock = float(amount) / float(open_stock_value)
 
         # Get today's stock value, multiply it by fraction_of_stock, and get result - converted_amount
-        r = requests.get(f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey={api_key}")
+        r = requests.get(f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval=5min&outputsize=full&apikey={api_key}")
         data = r.json()
 
         # Extract the time series
@@ -49,6 +51,8 @@ def dashboard(request):
         else:
             output_data = f"You lost £{abs(difference)}."
 
-        return render(request, 'dashboard.html', {'output_data': output_data, 'date': date, 'open': open_stock_value, 'latest_open': latest_open_stock_value, 'amount': amount})
+        return render(request, 'dashboard.html', {'output_data': output_data, 'date': date, 
+                                                  'open': open_stock_value, 'latest_open': latest_open_stock_value, 
+                                                  'amount': amount, 'symbol': symbol})
 
     return render(request, 'dashboard.html')
