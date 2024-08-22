@@ -2,13 +2,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <stack>
-#include <set>
+#include <algorithm>
+#include <array>
 using namespace std;
 
-constexpr int n_lines=10;
-constexpr int length_line = 10;
+constexpr int n_lines=100;
+constexpr int length_line = 100;
 
 
 array<int,length_line> string_to_ints(string ints_as_str){

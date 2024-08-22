@@ -10,4 +10,4 @@
 
 - Copy paste your data into data.txt
 - Update n_lines and length_line to fit the data you entered
-- Compile (using -O3 for clang++) and run
+- Compile `clang++ main.cpp -std=c++20 -O3  && ./a.out`
