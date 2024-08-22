@@ -19,8 +19,9 @@
         <div class="row mt-4 justify-content-md-center">
             <div class="col-6">
                 <div class="alert alert-info">
-                    <h3>Open stock value was £{{ open }} on {{ date }}.</h3>
-                    <div>You paid £{{amount}}.</div>
+                    <h4>{{ date }}'s open stock value was £{{ open }}.</h4>
+                    <h4>Latest stock value is £{{latest_open}}.</h4>
+                    <div>You bought the stock for £{{amount}}.</div>
                     <div>
                         {{ output_data }}
                     </div>
