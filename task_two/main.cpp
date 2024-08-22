@@ -97,6 +97,7 @@ int minCost(array<array< int,length_line>,n_lines> cost){
     */
 
     // Return the value in the bottom right cell
+   // print_cost(cost);
     return cost[n_lines - 1][length_line - 1];
 }
 
