@@ -6,6 +6,7 @@ module tb_arbiter();
     logic [2:0] r;
     logic [2:0] g;
 
+    // Initialise clock
     initial begin
         clk = 1'b0;
         forever #5 clk = ~clk;
@@ -17,23 +18,37 @@ module tb_arbiter();
         resetn = 1'b1;
     end
 
+    // Cycle through each possible input
+    // Do in ascending order of priority
     initial begin
         r = 3'b0;
         #110
         forever begin
-            r = 3'b001;
+            r = 3'b111;
             #25
-            r = 3'b010;
-            #25
-            r = 3'b011;
-            #25
-            r = 3'b100;
-            #25
-            r = 3'b101;
+            r = 3'b000;
             #25
             r = 3'b110;
             #25
-            r = 3'b111;
+            r = 3'b000;
+            #25
+            r = 3'b101;
+            #25
+            r = 3'b000;
+            #25
+            r = 3'b100;
+            #25
+            r = 3'b000;
+            #25
+            r = 3'b011;
+            #25
+            r = 3'b000;
+            #25
+            r = 3'b010;
+            #25
+            r = 3'b000;
+            #25
+            r = 3'b001;
             #25
             $stop();
         end

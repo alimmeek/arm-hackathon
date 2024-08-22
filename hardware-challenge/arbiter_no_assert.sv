@@ -1,12 +1,13 @@
-module arbiter_no_assert (
+module arbiter (
     input  logic clk,
     input  logic resetn,
 
-    input  logic [2:0] r,
+    input  logic [2:0] r,   // Resource request from each device
     
-    output logic [2:0] g
+    output logic [2:0] g    // Status of grants
 );
 
+// State machine encoding
 parameter A = 2'b00, B = 2'b01, C = 2'b10, D = 2'b11;
 
 logic [1:0] next_state;
@@ -15,8 +16,11 @@ logic [1:0] curr_state;
 logic [2:0] g_next;
 logic [2:0] g_q;
 
+
+// Decide next state based on current state and which devices (if any) have requested the resource
 always_comb begin
     next_state = curr_state;
+
     case (curr_state)
         A : begin
             if (r[0]) begin
@@ -48,8 +52,11 @@ always_comb begin
     endcase
 end
 
+// Allocate resource based on current state
 always_comb begin
     g_next = g_q;
+
+    // Use next_state to reduce latency between a state changing and the resource being allocated
     case (next_state)
         A : g_next = 3'b000;
 
@@ -61,6 +68,8 @@ always_comb begin
     endcase
 end
 
+// Update the current state and grant on each clock cycle
+// On resetn, set the state machine to state A and deallocate the resource
 always_ff @(posedge clk or negedge resetn) begin
     if (~resetn) begin
         curr_state <= A;
@@ -72,6 +81,5 @@ always_ff @(posedge clk or negedge resetn) begin
 end
 
 assign g = g_q;
-
 
 endmodule
