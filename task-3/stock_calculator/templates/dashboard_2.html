@@ -9,12 +9,11 @@
 <body>
     <div class="container">
         <h3>Data from the Last 100 days</h3>
-        <form method="POST" action="{% url 'dashboard' %}">
-            {% csrf_token %}
+        <form method="GET" action="{% url 'graph' %}">
             <div class="row mb-3">
                 <label for="symbol" class="col-sm-5 col-form-label alert alert-primary">Stock Symbol</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="symbol" name="symbol" step=".01">
+                    <input type="text" class="form-control" id="symbol" name="symbol">
                 </div>
             </div>
         </form>
