@@ -46,6 +46,7 @@ def dashboard(request):
         latest_date = next(iter(latest_time_series))
         latest_open_stock_value = latest_time_series[latest_date]['1. open']
 
+        # If the difference is positive or negative, return the appropriate response.
         difference = (float(latest_open_stock_value) * fraction_of_stock) - float(amount)
         difference = float("{:.2f}".format(round(difference, 2)))
         if difference >= 0:
