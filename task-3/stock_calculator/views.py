@@ -56,3 +56,37 @@ def dashboard(request):
                                                   'amount': amount, 'symbol': symbol})
 
     return render(request, 'dashboard.html')
+
+
+import matplotlib.pyplot as plt
+def graph(request):
+    api_key = '6BRPDCS4W0TGFI6S'
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey={api_key}'
+
+    r = request.get(url)
+
+    dis_data = r.json()
+
+
+    dis_dicts = dis_data['Time Series Daily']
+    dis_dates, highs, lows = [], [], []
+
+    for date in dis_dicts:
+        dis_dates.append(datetime.strptime(date, '%T-%m-%d'))
+        highs.append(float(dis_dicts[date]['2. high']))
+        lows.append(float(dis_dicts[date]['3. low']))
+    
+    plt.style.use('seaborn')
+    fig, ax = plt.subplots()
+    ax.plot(dis_dates, highs, c='red', alpha=0.6)
+    ax.plot(dis_data, lows, c='blue', alpha=0.6)
+    ax.fill_between(dis_dates, highs, lows, faceolor='blue', alpha=0.15)
+
+    ax.set_title(f"Daily high and low stock prices, for last 100 days")
+    ax.set_xlabel('',fontsize=16)
+
+
+    plt.savefig('plot.png')
+    plt.show()
+
+    return render(request, 'dashboard_2.html')
