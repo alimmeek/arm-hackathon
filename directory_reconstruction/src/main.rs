@@ -4,18 +4,21 @@ use std::io;
 
 const MAX_PATH_LEN: usize = 300;
 
-struct StackString{
+struct StackString {
     data: [u8; MAX_PATH_LEN],
-    pos: usize
+    pos: usize,
 }
 
-impl StackString{
-    fn new() -> Self{
-        Self{pos:0, data: [0;MAX_PATH_LEN]}
+impl StackString {
+    fn new() -> Self {
+        Self {
+            pos: 0,
+            data: [0; MAX_PATH_LEN],
+        }
     }
 
-    fn append(&mut self, data: &[u8], size: usize){
-        self.data[self.pos .. self.pos+size].copy_from_slice(data);
+    fn append(&mut self, data: &[u8], size: usize) {
+        self.data[self.pos..self.pos + size].copy_from_slice(data);
         self.pos += size;
     }
 }
@@ -35,7 +38,6 @@ fn main() {
     let mut max_path = StackString::new();
     let mut visited = FxHashSet::default();
     let mut should_chck = false;
-
 
     // allocate iput buffer
     let mut buffer = String::new();
@@ -80,7 +82,8 @@ fn main() {
                                         // append directory to current path
                                         let len = buffer.len();
                                         let name_len = len - 6;
-                                        current_path.append(&buffer.as_bytes()[5..len - 1], name_len);
+                                        current_path
+                                            .append(&buffer.as_bytes()[5..len - 1], name_len);
                                         // append separator
                                         current_path.data[current_path.pos] = b'/';
                                         current_path.pos += 1;
@@ -113,8 +116,14 @@ fn main() {
                                 let name_size = buffer.len() - 1 - start_i;
                                 // copy current ffiel path
                                 max_path.pos = 0;
-                                max_path.append(&current_path.data[..current_path.pos], current_path.pos);
-                                max_path.append(&buffer.as_bytes()[start_i..buffer.len() - 1], name_size);
+                                max_path.append(
+                                    &current_path.data[..current_path.pos],
+                                    current_path.pos,
+                                );
+                                max_path.append(
+                                    &buffer.as_bytes()[start_i..buffer.len() - 1],
+                                    name_size,
+                                );
                             }
                         }
                     }
