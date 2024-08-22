@@ -11,7 +11,7 @@ def dashboard(request):
         date = request.POST.get('date')
         symbol = request.POST.get('name')
 
-        api_key = '71OOEVZ6HN8LXFF5'
+        api_key = 'demo'
 
         if not amount or not date:
             error_message = "Both amount and date fields are required."
@@ -38,7 +38,7 @@ def dashboard(request):
         # Calculate the fraction that the stock was bought for
         fraction_of_stock = float(amount) / float(open_stock_value)
 
-        # Get today's stock value, multiply it by fraction_of_stock, and get result - converted_amount
+        # Get today's stock value
         r = requests.get(f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval=5min&outputsize=full&apikey={api_key}")
         data = r.json()
 
@@ -63,7 +63,7 @@ def dashboard(request):
 
 
 def graph(request):
-    # api_key = '71OOEVZ6HN8LXFF5'
+    # api_key = ''
 
     symbol = request.GET.get('symbol')
     if symbol is None:
