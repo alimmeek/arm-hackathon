@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">
-                <div style="padding: 16px; box-shadow: 2px 2px rgba(0, 0, 0, 0.135); border: 2px solid rgb(77, 77, 77); border-radius: 8px;">
+                <div style="padding: 16px; background-color: rgba(25, 27, 161); color:white; box-shadow: 2px 2px rgba(25, 27, 161, 0.626); border: 2px solid rgb(22, 10, 186); border-radius: 8px;">
                     <h1>Stock Calculator</h1>
                 </div>
             </div>
@@ -19,8 +19,9 @@
         <div class="row mt-4 justify-content-md-center">
             <div class="col-6">
                 <div class="alert alert-info">
-                    <h3>Open stock value was £{{ open }} on {{ date }}.</h3>
-                    <div>You paid £{{amount}}.</div>
+                    <h4>{{ date }}'s open stock value was £{{ open }}.</h4>
+                    <h4>Latest stock value is £{{latest_open}}.</h4>
+                    <div>You bought the stock for £{{amount}}.</div>
                     <div>
                         {{ output_data }}
                     </div>
@@ -35,13 +36,13 @@
                         <form method="POST" action="{% url 'dashboard' %}">
                             {% csrf_token %}
                             <div class="row mb-3">
-                                <label for="amount" class="col-sm-5 col-form-label">Amount Spent on Stock (£):</label>
+                                <label for="amount" class="col-sm-5 col-form-label alert alert-primary">Amount Spent on Stock (£):</label>
                                 <div class="col-sm-4">
                                     <input type="number" class="form-control" id="amount" name="amount" step=".01">
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="date" class="col-sm-5 col-form-label">Date Stock was Bought:</label>
+                                <label for="date" class="col-sm-5 col-form-label alert alert-primary">Date Stock was Bought:</label>
                                 <div class="col-sm-4">
                                     <input type="date" class="form-control" id="date" name="date">
                                 </div>
@@ -55,7 +56,7 @@
                                 </div>
                             </div>
                             {% endif %}
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button class="btn btn-primary  button" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -64,4 +65,42 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
+
+  <style>
+    .button {
+        background-color: rgb(25, 27, 161); ; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+   
+
+    </style>
+
+<style>
+    .label {
+        /*background-color: rgb(25, 27, 161); ; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    </style>
+
+</html>
+
+
+
 </html>
