@@ -19,7 +19,6 @@ def dashboard(request):
 
         # Get all data for the month. (It doesn't let us get the data for a specific day.)
         r = requests.get(f"https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval=5min&month={date[0:-3]}&outputsize=full&apikey={api_key}")
-        print(r)
         data = r.json()
 
         # Extract the time series
@@ -61,9 +60,11 @@ def dashboard(request):
 
 
 def graph(request):
-    api_key = 'demo'
+    api_key = '6BRPDCS4W0TGFI6S'
+
+    symbol = request.GET.get('symbol') or 'IBM'
     
-    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey={api_key}'
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={api_key}'
     r = requests.get(url)
 
     dis_data = r.json()
