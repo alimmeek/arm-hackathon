@@ -57,6 +57,7 @@ void parse_file_to_array(char* filename){
     while(fgets(file_str, max_file_size, fptr)) {
         printf("%s",file_str);
         graph[curr_line] = convert_list_of_strings_to_ints(file_str);
+
         curr_line+=1;
     }
     printf("\n");
@@ -78,7 +79,7 @@ void parse_file_to_array(char* filename){
 
 int main(){
     
-    parse_file_to_array("text1.txt");
+    parse_file_to_array("test1.txt");
 
 
     return 0;
